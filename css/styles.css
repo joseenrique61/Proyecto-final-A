@@ -2,6 +2,7 @@ html,
 body {
     height: 100%;
     margin: 0;
+    overflow: hidden;
 }
 
 .navbar-pers {
@@ -58,6 +59,10 @@ main {
 }
 
 .btn {
+    border-radius: 15px;
+}
+
+.action-btn {
     margin: 15% .5rem;
     padding: 5%;
     width: calc(100% - 1rem);
@@ -66,11 +71,51 @@ main {
     align-items: center;
 }
 
-.btn p {
+.action-btn p {
     margin: auto;
 }
 
 .graphics {
     width: 80%;
+    display: flex;
+    flex-direction: column;
     text-align: center;
+    justify-content: space-around;
+}
+
+.emergency {
+    padding: .7rem;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+}
+
+.horizontal-graphic {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.horizontal-graphic p {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.horizontal-graphics-bar {
+    width: 60%;
+}
+
+.horizontal-bar {
+    display: block;
+    margin: 10px;
+    background-color: #c2c2c2;
+    width: 100%;
+}
+
+.horizontal-bar-front {
+    background-color: limegreen;
+    position: fixed;
+    width: 48%;
+    transform: translateY(-183%);
 }
