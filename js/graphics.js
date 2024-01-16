@@ -1,17 +1,151 @@
+var maxHeight;
+
 $(document).ready(
-    setBarras()
+    function () {
+        maxHeight = document.getElementById("aguaBarBackground").getBoundingClientRect().height;
+        setBarras();
+    }
 );
 
+window.onresize = setBarras;
+
 function setBarras() {
-    setBarra("barAgua");
-    setBarra("barTemperatura");
+    setPosicionBarra("agua", 0.7);
+    setPosicionBarra("temperatura", 0.8);
+
+    setValorBarra("funcionamiento", getValorPorcentaje("funcionamiento", 0.8), 0.8);
+    setValorBarra("progreso", getValorPorcentaje("progreso", 0), 0);
 }
 
-function setBarra(nombreElemento) {
-    const barra = document.getElementById(nombreElemento);
-    const rect = document.getElementById(nombreElemento + "Background").getBoundingClientRect();
-    barra.style.height = rect.height + "px";
+function setPosicionBarra(tipo, porcentaje) {
+    const idBarra = tipo + "Bar";
+    const barra = document.getElementById(idBarra);
+    const rect = document.getElementById(idBarra + "Background").getBoundingClientRect();
     barra.style.bottom = window.innerHeight - (rect.y + rect.height) + "px";
-    console.log(rect.y);
-    console.log(rect.height);
+    
+    setValorBarra(tipo, getValorPorcentaje(tipo, porcentaje), porcentaje);
+}
+
+function setPorcentajeBarra(tipo, porcentaje, tiempo, callback) {
+    const values = getValor(tipo);
+    var value = values[0];
+    var maxValue = values[1];
+
+    var newValue = Math.round(porcentaje * maxValue);
+
+    var arriba = newValue > value;
+
+    var id = setInterval(frame, tiempo);
+
+    function frame() {
+        if (arriba) {
+            if (value >= newValue) {
+                clearInterval(id);
+                callback();
+            } else {
+                value += 2;
+            }
+        }
+        else {
+            if (value <= newValue) {
+                clearInterval(id);
+                callback();
+            } else {
+                value -= 2;
+            }
+        }
+
+        var porcentajeActual = value / maxValue;
+        if (porcentajeActual < 0) {
+            porcentajeActual = 0;
+            value = 0;
+        }
+
+        setValorBarra(tipo, value, porcentajeActual);
+    }
+}
+
+function getValor(tipo) {
+    const idBarra = tipo + "Bar";
+    const barra = document.getElementById(idBarra);
+
+    var value;
+    var maxValue;
+
+    if (barra.classList.contains("vertical-bar-front")) {
+        value = barra.getBoundingClientRect().height;
+        maxValue = maxHeight;
+    }
+    else {
+        value = barra.getBoundingClientRect().width;
+        maxValue = document.getElementById(idBarra + "Background").getBoundingClientRect().width;
+    }
+
+    return [value, maxValue];
+}
+
+function getValorPorcentaje(tipo, porcentaje) {
+    const maxValue = getValor(tipo)[1];
+    return maxValue * porcentaje;
+}
+
+function setValorBarra(tipo, value, porcentaje) {
+    const idBarra = tipo + "Bar";
+    const idCantidad = tipo + "Cantidad";
+    const idPorcentaje = tipo + "Porcentaje";
+
+    changeGraphic(idBarra, value, porcentaje);
+    setValues(idCantidad, porcentaje);
+
+    const porcentajeText = document.getElementById(idPorcentaje);
+    porcentajeText.textContent = Math.round(porcentaje * 100) + "%";
+}
+
+function changeGraphic(idBarra, value, porcentaje) {
+    const barra = document.getElementById(idBarra);
+
+    switch (idBarra) {
+        case "aguaBar":
+            barra.style.height = value + "px";
+            break;
+            
+        case "temperaturaBar":
+            barra.style.height = value + "px";
+            barra.style.background = "linear-gradient(180deg, " + getColor(value, porcentaje) + ", rgb(0, 0, 255))"
+            break;
+        
+        case "funcionamientoBar":
+        case "progresoBar":
+            barra.style.width = value + "px";
+            break;
+    }
+}
+
+function setValues(idCantidad, porcentaje) {
+    const cantidad = document.getElementById(idCantidad);
+    
+    switch (idCantidad) {
+        case "aguaCantidad":
+            const maxAgua = 2000;
+            cantidad.textContent = Math.round(maxAgua * porcentaje) + "L";
+            break;
+            
+        case "temperaturaCantidad":
+            const maxTemp = 400;
+            cantidad.textContent = Math.round(maxTemp * porcentaje) + " °C";
+            break;
+            
+        case "funcionamientoCantidad":
+            const maxFuncionamiento = 450;
+            cantidad.textContent = Math.round(maxFuncionamiento * porcentaje) + " MWe";
+            break;
+    }
+}
+
+function getColor(porcentaje) {
+    const rojo = 255;
+    const azul = 0;
+
+    var string = "rgb(" + (rojo - 255 * (1 - porcentaje)) + ", 0, " + (azul + 255 * (1 - porcentaje)) + ")";
+    return string
 }
