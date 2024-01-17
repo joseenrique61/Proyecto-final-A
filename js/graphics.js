@@ -35,11 +35,15 @@ function setPorcentajeBarra(tipo, porcentaje, tiempo, callback) {
 
     var arriba = newValue > value;
 
-    var id = setInterval(frame, tiempo);
+    const ms = tiempo / (Math.abs(newValue - value) / 2);
+
+    var id = setInterval(frame, ms);
 
     function frame() {
+        var completo = false;
         if (arriba) {
             if (value >= newValue) {
+                completo = true;
                 clearInterval(id);
                 callback();
             } else {
@@ -48,6 +52,7 @@ function setPorcentajeBarra(tipo, porcentaje, tiempo, callback) {
         }
         else {
             if (value <= newValue) {
+                completo = true;
                 clearInterval(id);
                 callback();
             } else {
@@ -61,7 +66,9 @@ function setPorcentajeBarra(tipo, porcentaje, tiempo, callback) {
             value = 0;
         }
 
-        setValorBarra(tipo, value, porcentajeActual);
+        if (!completo) {
+            setValorBarra(tipo, value, porcentajeActual);
+        }
     }
 }
 

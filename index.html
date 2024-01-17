@@ -18,7 +18,7 @@
         <main>
             <div class="horizontal-distr">
                 <div class="vertical-distr sidebar">
-                    <a class="btn btn-secondary action-btn" id="detenerTurbinasBtn">
+                    <a class="btn btn-secondary action-btn" id="detenerBtn">
                         <svg class="col-3" width="80" height="50" viewBox="0 0 83 82" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M22.431 43.6686C19.6098 43.1677 16.3508 42.0821 14.1116 39.7095C11.0404 36.4505 6.51987 36.9113 3.64679 40.706C1.41318 43.6473 -0.284757 49.2458 1.63922 56.125C4.10828 64.963 14.2367 81.4714 27.528 81.4749C27.528 81.4749 27.528 81.4749 27.5311 81.4749C31.4414 81.4749 35.2214 79.9842 38.7699 77.0502C46.0109 71.0585 45.5052 62.7165 42.9431 56.0191C41.7478 56.281 40.5089 56.4256 39.2352 56.4256C31.238 56.4221 24.4929 51.0155 22.431 43.6686Z" fill="white"/>
                             <path d="M68.4738 20.0357C67.128 19.7244 65.7951 19.5683 64.5105 19.5683C58.6456 19.5683 54.4145 22.7005 51.4446 26.3792C54.7541 29.5585 56.8268 34.0173 56.8268 38.9614C56.8268 44.0663 54.6078 48.6586 51.1002 51.8542C52.7452 54.5657 54.4518 58.4652 53.8259 62.3176C53.3954 64.979 54.2891 66.695 55.1167 67.6671C56.404 69.1822 58.4701 70.0177 60.9311 70.0177C64.6373 70.0177 70.1299 67.9729 74.4439 62.2344C79.5548 55.4353 85.0279 41.1354 81.1949 30.6336C79.1908 25.1543 74.7922 21.4888 68.4738 20.0357Z" fill="white"/>
@@ -28,6 +28,10 @@
                         <p>
                             Detener turbinas
                         </p>
+
+                        <div class="tooltip-pers tooltip-pers-hidden" id="detenerTooltip">
+                            <span class="tooltip-pers-text">¡Antes debes detener las turbinas!</span>
+                        </div>
                     </a>
                     <a class="btn btn-secondary action-btn" id="ventilarBtn">
                         <svg class="col-3" width="80" height="50" viewBox="0 0 70 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,6 +40,10 @@
                         <p>
                             Ventilar el contenido radiactivo
                         </p>
+
+                        <div class="tooltip-pers tooltip-pers-hidden" id="ventilarTooltip">
+                            <span class="tooltip-pers-text">¡Antes debes ventilar el contenido!</span>
+                        </div>
                     </a>
                     <a class="btn btn-secondary action-btn" id="evacuarBtn">
                         <svg class="col-3" width="80" height="50" viewBox="0 0 83 83" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,6 +52,10 @@
                         <p>
                             Evacuar el agua caliente e insertar agua fría
                         </p>
+
+                        <div class="tooltip-pers tooltip-pers-hidden" id="evacuarTooltip">
+                            <span class="tooltip-pers-text">¡Antes debes reemplazar el agua del reactor!</span>
+                        </div>
                     </a>
                     <a class="btn btn-secondary action-btn" id="apagarBtn">
                         <svg class="col-3" width="80" height="50" viewBox="0 0 54 58" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,10 +64,30 @@
                         <p>
                             Apagar el reactor
                         </p>
+
+                        <div class="tooltip-pers tooltip-pers-hidden" id="apagarTooltip">
+                            <span class="tooltip-pers-text">¡Antes debes apagar el reactor nuclear!</span>
+                        </div>
                     </a>
                 </div>
 
                 <div class="graphics">
+                    <div class="horizontal-distr horizontal-graphic" style="margin: .8rem; justify-content: right;">
+                        <div class="horizontal-distr">
+                            <p>Alerta: </p>
+                            <div class="luz" id="alerta">
+                                &nbsp;
+                            </div>
+                        </div>
+
+                        <div class="horizontal-distr">
+                            <p>Encendido: </p>
+                            <div class="luz luz-encendida" id="encendido">
+                                &nbsp;
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="vertical-distr">
                         <div class="horizontal-distr horizontal-graphic">
                             <p>Funcionamiento: </p>
@@ -130,13 +162,12 @@
                     </div>
                 </div>
 
-                <a class="btn btn-danger emergency">
+                <a class="btn btn-danger emergency" id="emergenciaBtn">
                     <svg width="80" height="80" viewBox="0 0 84 87" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20.7826 33.314C21.8445 25.3691 28.6219 19.436 36.6372 19.436H47.0161C55.0314 19.436 61.8089 25.3691 62.8676 33.314L66.5586 61.0157H41.8251V25.8329H36.7492C31.9579 25.8329 27.9023 29.3672 27.2434 34.1137L23.5204 61.0157H17.0916L20.7826 33.314ZM32.8279 14.4337C33.023 15.1501 33.6691 15.6203 34.3727 15.6203C34.5103 15.6203 34.6478 15.6043 34.7853 15.5659C35.6425 15.3388 36.1479 14.4593 35.9176 13.6085L32.6072 1.24975C32.3769 0.392572 31.4941 -0.106383 30.6497 0.117507C29.7926 0.344596 29.2872 1.22416 29.5175 2.07495L32.8279 14.4337ZM62.1799 23.0695C62.5893 23.0695 62.9987 22.9127 63.3122 22.6025L72.3573 13.5541C72.981 12.9304 72.981 11.9165 72.3573 11.2928C71.7336 10.6691 70.7197 10.6691 70.096 11.2928L61.0509 20.3412C60.4272 20.9649 60.4272 21.9788 61.0509 22.6025C61.3611 22.9127 61.7705 23.0695 62.1799 23.0695ZM48.8616 15.5659C48.9992 15.6043 49.1367 15.6203 49.2742 15.6203C49.9811 15.6203 50.6272 15.1501 50.8191 14.4337L54.1294 2.07495C54.3565 1.22097 53.8512 0.344596 52.9972 0.117507C52.1624 -0.103185 51.2701 0.39577 51.0398 1.24975L47.7294 13.6085C47.4991 14.4593 48.0077 15.3357 48.8616 15.5659ZM16.2376 64.2141C14.4721 64.2141 13.0392 65.647 13.0392 67.4125H70.611C70.611 65.647 69.1781 64.2141 67.4125 64.2141H16.2376ZM20.338 22.6025C20.6514 22.9159 21.0608 23.0695 21.4702 23.0695C21.8796 23.0695 22.289 22.9127 22.6025 22.6025C23.2262 21.9788 23.2262 20.9649 22.6025 20.3412L13.5541 11.2928C12.9304 10.6691 11.9165 10.6691 11.2928 11.2928C10.6691 11.9165 10.6691 12.9304 11.2928 13.5541L20.338 22.6025ZM83.5327 30.6497C83.3024 29.7926 82.4356 29.2936 81.572 29.5175L69.2165 32.8279C68.3625 33.055 67.8571 33.9345 68.0842 34.7853C68.2793 35.5018 68.9254 35.9719 69.6291 35.9719C69.7666 35.9719 69.9041 35.9559 70.0449 35.9176L82.4004 32.6072C83.2544 32.3801 83.7597 31.5005 83.5327 30.6497ZM70.611 70.611H13.0392C9.3194 70.611 6.11776 73.2369 5.38852 76.8831L4.2083 82.7778C3.81169 84.7576 5.32775 86.6031 7.34596 86.6031H76.3042C78.3224 86.6031 79.8353 84.7576 79.4418 82.7778L78.2616 76.8831C77.5324 73.2369 74.3308 70.611 70.611 70.611ZM30.4131 34.5518L26.7477 61.0157H38.6266V29.0313H36.7492C33.5731 29.0313 30.8481 31.4046 30.4131 34.5518ZM14.0211 35.9719C14.7279 35.9719 15.374 35.5018 15.5659 34.7853C15.793 33.9313 15.2877 33.055 14.4337 32.8279L2.07814 29.5175C1.21456 29.2968 0.347789 29.7958 0.117502 30.6497C-0.109587 31.5037 0.395765 32.3801 1.24975 32.6072L13.6053 35.9176C13.746 35.9559 13.8836 35.9719 14.0211 35.9719Z" fill="white"/>
                     </svg>
                 </a>
             </div>
-
         </main>
 
         <script src="https://code.jquery.com/jquery-3.7.1.slim.js"
@@ -144,5 +175,6 @@
             crossorigin="anonymous"></script>
         <script src="js/graphics.js"></script>
         <script src="js/buttons.js"></script>
+        <script src="js/tooltips.js"></script>
     </body>
 </html>    

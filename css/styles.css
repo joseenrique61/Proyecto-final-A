@@ -58,6 +58,19 @@ main {
     border-radius: 15px;
 }
 
+.btn-disabled {
+    pointer-events: none;
+    cursor: default;
+    background-color: #6d6d6d;
+    border-color: #6d6d6d;
+    color: #c2c2c2;
+}
+
+.btn-disabled path {
+    fill: #c2c2c2;
+    stroke: #c2c2c2;
+}
+
 .action-btn {
     margin: 15% .5rem;
     padding: 5%;
@@ -149,4 +162,53 @@ main {
 
 .temperatura-bar {
     background: linear-gradient(180deg, rgb(255, 0, 0), rgb(0, 0, 255));
+}
+
+.luz {
+    width: 2rem;
+    height: 2rem;
+    background-color: #c2c2c2;
+    border-radius: 100%;
+    margin: 0 .5rem;
+}
+
+.luz-encendida {
+    background-color: limegreen;
+}
+
+.luz-alerta {
+    background-color: #dc3545;
+}
+
+.tooltip-pers {
+    position: absolute;
+    left: 20%;
+    width: 7rem;
+    height: 5rem;
+    background-color: #ee4859;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.tooltip-pers .tooltip-pers-text {
+    display: inline-block;
+    position: relative;
+    top: calc(50% - 2.3em);
+    color: #fff;
+    font-size: small;
+}
+
+.tooltip-pers .tooltip-pers-text::after {
+    content: " ";
+    position: absolute;
+    bottom: calc(50% - 6px); /* At the bottom of the tooltip */
+    right: 100%;
+    margin-left: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #ee4859 transparent transparent;
+}
+
+.tooltip-pers-hidden {
+    display: none;
 }
