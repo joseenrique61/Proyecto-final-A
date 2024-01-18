@@ -76,17 +76,20 @@ function habilitarBotones() {
 
 function detenerTurbinas() {
     setPorcentajeBarra("temperatura", 0.86, 2000, function() {});
+    setPorcentajeBarra("funcionamiento", 0.85, 2000, function() {});
     setPorcentajeBarra("progreso", 1, 3000, resetProgreso);
 }
 
 function ventilar() {
     setPorcentajeBarra("temperatura", 0.75, 1500, function() {});
+    setPorcentajeBarra("funcionamiento", 0.77, 1500, function() {});
     setPorcentajeBarra("progreso", 1, 2500, resetProgreso);
 }
 
 function evacuarAgua() {
     setPorcentajeBarra("agua", 0, 6000, llenarAgua);
     setPorcentajeBarra("temperatura", 0.6, 6000, function() {});
+    setPorcentajeBarra("funcionamiento", 0.68, 6000, function() {});
     setPorcentajeBarra("progreso", 1, 14000, resetProgreso);
 }
 
@@ -105,6 +108,7 @@ function apagar() {
 
 function emergencia() {
     clearInterval(id);
+    setPorcentajeBarra("temperatura", 0.2, 2000, function() {});
     document.getElementById("alerta").classList.remove("luz-alerta");
 }
 

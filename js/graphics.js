@@ -128,7 +128,7 @@ function changeGraphic(idBarra, value, porcentaje) {
             
         case "temperaturaBar":
             barra.style.height = value + "px";
-            barra.style.background = "linear-gradient(180deg, " + getColor(value, porcentaje) + ", rgb(0, 0, 255))"
+            barra.style.background = "linear-gradient(180deg, " + getColor(porcentaje) + ", rgb(0, 0, 255))"
             break;
         
         case "funcionamientoBar":
@@ -148,7 +148,7 @@ function setValues(idCantidad, porcentaje) {
             break;
             
         case "temperaturaCantidad":
-            const maxTemp = 400;
+            const maxTemp = 550;
             cantidad.textContent = Math.round(maxTemp * porcentaje) + " °C";
             break;
             
