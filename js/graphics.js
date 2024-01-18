@@ -22,9 +22,7 @@ window.onresize = setBarras;
 function setBarras() {
     setPosicionBarra("agua", 0.7);
     setPosicionBarra("temperatura", 0.8);
-
-    setValorBarra("funcionamiento", getValorPorcentaje("funcionamiento", 0.8), 0.8);
-    setValorBarra("progreso", getValorPorcentaje("progreso", 0), 0);
+    setPosicionBarra("funcionamiento", 0.8);
 }
 
 function setPosicionBarra(tipo, porcentaje) {
@@ -123,17 +121,13 @@ function changeGraphic(idBarra, value, porcentaje) {
 
     switch (idBarra) {
         case "aguaBar":
+        case "funcionamientoBar":
             barra.style.height = value + "px";
             break;
             
         case "temperaturaBar":
             barra.style.height = value + "px";
-            barra.style.background = "linear-gradient(180deg, " + getColor(value, porcentaje) + ", rgb(0, 0, 255))"
-            break;
-        
-        case "funcionamientoBar":
-        case "progresoBar":
-            barra.style.width = value + "px";
+            barra.style.background = "linear-gradient(180deg, " + getColor(porcentaje) + ", rgb(0, 0, 255))"
             break;
     }
 }
@@ -148,7 +142,7 @@ function setValues(idCantidad, porcentaje) {
             break;
             
         case "temperaturaCantidad":
-            const maxTemp = 400;
+            const maxTemp = 550;
             cantidad.textContent = Math.round(maxTemp * porcentaje) + " °C";
             break;
             

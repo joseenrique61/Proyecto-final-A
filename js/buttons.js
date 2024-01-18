@@ -4,15 +4,9 @@ var siguiente = orden[0];
 
 $(document).ready(
     function () {
-        id = setInterval(alternarAlarma, 300);
         setAccionesBotones();
     }
 );
-
-function alternarAlarma() {
-    const luz = document.getElementById("alerta");
-    luz.classList.toggle("luz-alerta");
-}
 
 function setAccionesBotones() {
     orden.forEach(element => {
@@ -76,39 +70,34 @@ function habilitarBotones() {
 
 function detenerTurbinas() {
     setPorcentajeBarra("temperatura", 0.86, 2000, function() {});
-    setPorcentajeBarra("progreso", 1, 3000, resetProgreso);
+    setPorcentajeBarra("funcionamiento", 0.85, 2000, resetProgreso);
 }
 
 function ventilar() {
     setPorcentajeBarra("temperatura", 0.75, 1500, function() {});
-    setPorcentajeBarra("progreso", 1, 2500, resetProgreso);
+    setPorcentajeBarra("funcionamiento", 0.77, 1500, resetProgreso);
 }
 
 function evacuarAgua() {
     setPorcentajeBarra("agua", 0, 6000, llenarAgua);
     setPorcentajeBarra("temperatura", 0.6, 6000, function() {});
-    setPorcentajeBarra("progreso", 1, 14000, resetProgreso);
+    setPorcentajeBarra("funcionamiento", 0.68, 6000, function() {});
 }
 
 function llenarAgua() {
-    setPorcentajeBarra("agua", 0.8, 7000, function() {});
+    setPorcentajeBarra("agua", 0.8, 7000, resetProgreso);
 }
 
 function apagar() {
-    setPorcentajeBarra("funcionamiento", 0, 2000, function() {});
     setPorcentajeBarra("temperatura", 0.3, 2000, function() {});
-    setPorcentajeBarra("progreso", 1, 3000, function () {
-        resetProgreso();
-        document.getElementById("encendido").classList.toggle("luz-alerta");
-    });
+    setPorcentajeBarra("funcionamiento", 0, 2000, resetProgreso);
 }
 
 function emergencia() {
     clearInterval(id);
-    document.getElementById("alerta").classList.remove("luz-alerta");
+    setPorcentajeBarra("temperatura", 0.2, 2000, function() {});
 }
 
 function resetProgreso() {
-    setValorBarra("progreso", 0, 0);
     habilitarBotones();
 }
