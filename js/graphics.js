@@ -4,6 +4,16 @@ $(document).ready(
     function () {
         maxHeight = document.getElementById("aguaBarBackground").getBoundingClientRect().height;
         setBarras();
+
+        const flashScreen = document.getElementsByClassName("flash-screen")[0];
+
+        document.getElementById("iconoCarga").addEventListener("animationend", function () {
+            flashScreen.classList.add("flash-screen-hidden");
+        });
+
+        flashScreen.addEventListener("transitionend", function () {
+            flashScreen.style.display = "none";
+        });
     }
 );
 
