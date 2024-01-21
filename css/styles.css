@@ -94,10 +94,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
 }
 
 .action-btn p {
     margin: auto;
+}
+
+.btn-wrapper {
+    position: relative;
+    height: 100%;
 }
 
 .graphics {
@@ -187,13 +193,15 @@ body {
 }
 
 .tooltip-pers {
+    display: inline;
     position: absolute;
-    left: 20%;
+    left: 100%;
     width: 7rem;
     height: 5rem;
     background-color: #ee4859;
     border-radius: 10px;
     text-align: center;
+    z-index: 1;
 }
 
 .tooltip-pers .tooltip-pers-text {
