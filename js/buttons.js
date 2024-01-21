@@ -1,5 +1,5 @@
 var id;
-var orden = ["detener", "ventilar", "evacuar", "apagar", "emergencia"];
+var orden = ["detener", "ventilar", "evacuar", "llenar", "apagar", "emergencia"];
 var siguiente = orden[0];
 
 $(document).ready(
@@ -40,6 +40,9 @@ function setAccionBoton(tipo) {
             break;
         case "evacuar":
             evacuarAgua();
+            break;
+        case "llenar":
+            llenarAgua();
             break;
         case "apagar":
             apagar();
@@ -87,14 +90,16 @@ function ventilar() {
 }
 
 function evacuarAgua() {
-    setPorcentajeBarra("agua", 0, 6000, llenarAgua);
-    setPorcentajeBarra("temperatura", 0.6, 6000, function() {});
+    setPorcentajeBarra("agua", 0, 6000, function() {});
+    setPorcentajeBarra("temperatura", 0.8, 6000, function() {});
     setPorcentajeBarra("funcionamiento", 0.68, 6000, function() {});
-    setPorcentajeBarra("progreso", 1, 14000, resetProgreso);
+    setPorcentajeBarra("progreso", 1, 7000, resetProgreso);
 }
 
 function llenarAgua() {
-    setPorcentajeBarra("agua", 0.8, 7000, function() {});
+    setPorcentajeBarra("agua", 0.8, 5000, function() {});
+    setPorcentajeBarra("temperatura", 0.6, 5000, function() {});
+    setPorcentajeBarra("progreso", 1, 6000, resetProgreso);
 }
 
 function apagar() {
